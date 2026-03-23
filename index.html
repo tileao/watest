@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f14">
+  <title>WAC 6800</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">AW139</p>
+        <h1>WAC 6800</h1>
+        <p class="subtitle">Envelope check com base nos charts WAT/WAC</p>
+      </div>
+      <button id="installBtn" class="ghost hidden">Instalar</button>
+    </header>
+
+    <section class="card form-card">
+      <div class="card-title-row">
+        <h2>Entradas</h2>
+        <span class="pill">Offline PWA</span>
+      </div>
+
+      <div class="grid">
+        <label>
+          <span>Procedure</span>
+          <select id="procedure">
+            <option value="offshore" selected>Offshore Helideck</option>
+            <option value="clear">Clear Area / CAT B</option>
+            <option value="confined">Confined Area</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Configuration</span>
+          <select id="configuration">
+            <option value="standard">Standard</option>
+            <option value="eaps_off" selected>EAPS OFF</option>
+            <option value="eaps_on">EAPS ON</option>
+            <option value="ibf">IBF Installed</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Pressure Altitude (ft)</span>
+          <input id="pressureAltitude" type="number" inputmode="numeric" placeholder="Ex.: 1200">
+        </label>
+
+        <label>
+          <span>OAT (°C)</span>
+          <input id="oat" type="number" inputmode="decimal" placeholder="Ex.: 28">
+        </label>
+
+        <label>
+          <span>Actual Weight (kg)</span>
+          <input id="actualWeight" type="number" inputmode="decimal" placeholder="Ex.: 6550">
+        </label>
+
+        <label id="headwindWrap">
+          <span>Headwind Component (kt)</span>
+          <input id="headwind" type="number" inputmode="decimal" placeholder="Ex.: 15">
+        </label>
+      </div>
+
+      <div class="action-row">
+        <button id="runBtn" class="primary">Check Envelope</button>
+        <button id="demoBtn" class="ghost">Carregar demo</button>
+      </div>
+      <p class="hint">Esta versão já entrega a interface, o fluxo operacional e a arquitetura da camada gráfica. A matemática do chart fica preparada para receber a digitalização das curvas.</p>
+    </section>
+
+    <section id="statusCard" class="card status neutral">
+      <div class="status-badge">AGUARDANDO DADOS</div>
+      <div class="status-main">
+        <div>
+          <p class="label">Status</p>
+          <h2 id="statusTitle">Envelope check</h2>
+          <p id="statusText">Preencha os campos e execute o cálculo.</p>
+        </div>
+        <div class="metrics">
+          <div class="metric">
+            <span class="label">Max Weight</span>
+            <strong id="maxWeight">—</strong>
+          </div>
+          <div class="metric">
+            <span class="label">Margin</span>
+            <strong id="margin">—</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title-row">
+        <h2>Visual interpolation</h2>
+        <button id="toggleChart" class="ghost small">Mostrar gráfico</button>
+      </div>
+      <div id="chartPanel" class="chart-panel hidden">
+        <canvas id="chartCanvas" width="900" height="640" aria-label="Visual interpolation chart"></canvas>
+        <div class="legend">
+          <span><i class="dot white"></i> Max weight interpolado</span>
+          <span><i class="dot blue"></i> Peso atual</span>
+          <span><i class="dot green"></i> Dentro</span>
+          <span><i class="dot red"></i> Fora</span>
+        </div>
+        <p class="hint">Canvas já preparado para a futura reconstrução vetorial do chart no estilo AW139PAC.</p>
+      </div>
+    </section>
+
+    <section class="card compact">
+      <h2>Arquitetura pronta para os charts</h2>
+      <ul class="clean-list">
+        <li>Banco de dados em JSON por procedimento/configuração</li>
+        <li>Motor de interpolação separado da interface</li>
+        <li>Camada gráfica independente para visualização do envelope</li>
+        <li>Suporte nativo a uso offline via service worker</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

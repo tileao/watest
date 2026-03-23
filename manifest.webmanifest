@@ -1,0 +1,10 @@
+{
+  "name": "WAC 6800",
+  "short_name": "WAC6800",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f14",
+  "theme_color": "#0b0f14",
+  "description": "Envelope check PWA para charts WAC/WAT do AW139.",
+  "icons": []
+}
